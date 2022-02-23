@@ -15,6 +15,13 @@ COPY ./ /kb/module
 RUN mkdir -p /kb/module/work
 RUN chmod -R a+rw /kb/module
 
+RUN mkdir -p /opt/build
+RUN git clone https://github.com/ModelSEED/ModelSEEDpy.git /opt/build/ModelSEEDpy
+RUN git clone -b cobra-model https://github.com/Fxe/cobrakbase.git /opt/build/cobrakbase
+
+RUN pip install /opt/build/ModelSEEDpy
+RUN pip install /opt/build/cobrakbase
+
 WORKDIR /kb/module
 
 RUN make all

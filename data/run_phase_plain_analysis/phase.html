@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Phase Analysis</title>
+  <link rel="stylesheet" href="../css/bootstrap.css" />
+</head>
+<body>
+Plot
+<div id="tester" style="width:800px;height:250px;"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9"><div id="plot" style="width:800px;height:450px;"></div></div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="reaction-select">Reaction</label>
+        <select id="reaction-select" class="form-control form-control-sm"></select>
+      </div>
+      <div class="form-group">
+        <label for="plot-trace-alias">Alias</label>
+        <input id="plot-trace-alias" class="form-control form-control-sm" type="text" placeholder="e.g., glucose">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput2">Color</label>
+        <input id="exampleFormControlInput2" class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+      </div>
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="lines">
+          <label class="form-check-label" for="inlineRadio1">lines</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="markers">
+          <label class="form-check-label" for="inlineRadio2">markers</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="lines+markers">
+          <label class="form-check-label" for="inlineRadio2">lines+markers</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio-plot-dash" id="radio-plot-dash-none" value="none">
+          <label class="form-check-label" for="radio-plot-dash-none">none</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio-plot-dash" id="radio-plot-dash-dot" value="dot">
+          <label class="form-check-label" for="radio-plot-dash-dot">dot</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="radio-plot-dash" id="radio-plot-dash-dash" value="dash">
+          <label class="form-check-label" for="radio-plot-dash-dash">dash</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+          <label class="form-check-label" for="inlineCheckbox1">ABS</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <button id="add" class="btn btn-success">Add</button>
+        <button class="btn btn-danger">Remove</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/plotly-2.8.3.min.js"></script>
+<script src="../js/underscore-1.9.1.min.js"></script>
+<script>
+  /*
+  TESTER = document.getElementById('tester');
+  Plotly.newPlot( TESTER, [{
+    x: [1, 2, 3, 4, 5],
+    y: [1, 2, 4, 8, 16] }], {
+    margin: { t: 0 } } );
+
+   */
+  var DATA;
+  $(function() {
+    let selectReaction = $('#reaction-select');
+    let plotVar = {
+      'rxn10577_cR': {'mode': 'lines', 'abs': true, name: 'N2 (R)', color: 'rgb(128,0,0)', dash: 'dash'},
+      'rxn10577_cA': {'mode': 'lines', 'abs': true, name: 'N2 (A)', color: 'rgb(128,0,0)', dash: 'dot'},
+      'rxn08063_cR': {'mode': 'lines', 'abs': true, name: 'AC (R)', color: 'rgb(59,59,59)', dash: 'dash'},
+      'rxn05488_cA': {'mode': 'lines', 'abs': true, name: 'AC (A)', color: 'rgb(59,59,59)', dash: 'dot'},
+      'rxn05627_cR': {'mode': 'lines', 'abs': true, name: 'Nitrate (R)', color: 'rgb(0,7,255)', dash: 'dash'},
+      'rxn05627_cA': {'mode': 'lines', 'abs': false, name: 'Nitrate (A)', color: 'rgb(0,7,255)', dash: 'dot'},
+
+      'rxn05625_cR': {'mode': 'lines', 'abs': true, name: 'Nitrite (R)', color: 'rgb(65,120,255)', dash: 'dash'},
+      'rxn05625_cA': {'mode': 'lines', 'abs': false, name: 'Nitrite (A)', color: 'rgb(65,120,255)', dash: 'dot'},
+
+      'rxn09008_cR': {'mode': 'lines', 'abs': false, name: 'NO (R)', color: 'rgb(255,150,7)', dash: 'dash'},
+      'rxn09008_cA': {'mode': 'lines', 'abs': false, name: 'NO (A)', color: 'rgb(255,150,7)', dash: 'dot'},
+
+      'rxn08966_eR': {'mode': 'lines', 'abs': false, name: 'N2O (R)', color: 'rgb(255,0,248)', dash: 'dash'},
+      'rxn08966_cA': {'mode': 'lines', 'abs': false, name: 'N2O (A)', color: 'rgb(255,0,248)', dash: 'dot'},
+
+      'EX_cpd00029_e0': {'mode': 'markers', 'abs': false, name: 'AC (EX)', color: 'rgb(59,59,59)'},
+      'EX_cpd00659_e0': {'mode': 'markers', 'abs': false, name: 'N2O (EX)', color: 'rgb(255,0,248)'},
+      'EX_cpd00418_eA': {'mode': 'markers', 'abs': false, name: 'NO (EX)', color: 'rgb(255,150,7)'},
+      'EX_cpd00209_e0': {'mode': 'markers', 'abs': false, name: 'Nitrite (EX)', color: 'rgb(0,7,255)'},
+      'EX_cpd00075_e0': {'mode': 'markers', 'abs': false, name: 'Nitrite (EX)', color: 'rgb(65,120,255)'},
+
+
+
+    };
+    let x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+
+
+    $.getJSON("fba_results.json", function(fbaData) {
+      DATA = fbaData
+      console.log(fbaData);
+      let x = fbaData.order;
+      let fbaArray = fbaData.fba;
+      _.each(_.keys(fbaArray[x[0]].fluxes), function(k) {
+        selectReaction.append($('<option>', {
+          value: k, text: k
+        }));
+      });
+
+      function updatePlot(fbaArray) {
+        let data = [];
+
+        _.each(plotVar, function(options, dataTraceId) {
+          //console.log(options, dataTraceId);
+          let abs = options['abs'];
+          let trace = {
+            x: [],
+            y: [],
+            mode: options['mode'],
+            name: options['name'],
+          };
+
+          let lineStyle = {};
+          if (options['color']) {
+            lineStyle.color = options['color']
+          }
+          if (options['dash']) {
+            lineStyle.dash = options['dash']
+          }
+          trace.line = lineStyle;
+
+          _.each(x, function(x_) {
+            let v =fbaArray[x_]['fluxes'][dataTraceId];
+            if (abs) {
+              v = Math.abs(v);
+            }
+            trace.x.push(x_);
+            trace.y.push(v);
+          });
+          data.push(trace);
+        });
+
+        Plotly.newPlot('plot', data, {'title': 'plot'});
+      }
+
+      updatePlot(fbaArray);
+
+      $('#add').click(function() {
+        let traceId = selectReaction.val();
+        plotVar[traceId] = {
+          mode: 'lines',
+          abs: true,
+          name: traceId
+        };
+        let alias = $('#plot-trace-alias').val();
+        if (alias && alias.length > 0) {
+          plotVar[traceId].name = alias
+        }
+        console.log('add!', selectReaction.val())
+        updatePlot(fbaArray);
+      });
+
+    });
+  })
+</script>
+</html>
