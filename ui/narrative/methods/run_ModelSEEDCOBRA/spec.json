@@ -1,6 +1,8 @@
 {
     "ver": "0.0.1",
-    "authors": ["filipeliu"],
+    "authors": [
+        "filipeliu"
+    ],
     "contact": "fliu@anl.gov",
     "categories": ["active", "metabolic_modeling"],
     "widgets": {
@@ -9,7 +11,7 @@
     },
    "parameter-groups": [
       {
-          "id": "grid_maps",
+        "id": "grid_maps",
         "parameters": [
           "target_reaction",
           "map_id",
@@ -25,7 +27,7 @@
           "gene_expression",
           "gene_expression_dataset"
         ],
-        "optional": false,
+        "optional": true,
         "advanced": false,
         "allow_multiple": true,
         "with_border": true
@@ -211,19 +213,15 @@
             "valid_ws_types" : []
          },
          "textsubdata_options" : {
-            "show_src_obj" : true,
-            "allow_custom" : true,
+            "show_src_obj" : false,
+            "allow_custom" : false,
             "multiselection" : false,
             "subdata_selection" : {
                "additional_options" : [],
                "subdata_included" : [
-                  "mediacompounds/[*]/id",
-                  "mediacompounds/[*]/name"
+                  "mediacompounds/[*]/compound_ref"
                ],
-               "selection_description" : [
-                  "name"
-               ],
-               "selection_id" : "id",
+               "selection_id" : "compound_ref",
                "path_to_subdata" : [
                   "mediacompounds"
                ],
