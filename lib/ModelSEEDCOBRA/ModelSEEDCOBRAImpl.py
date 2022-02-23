@@ -2,6 +2,7 @@
 #BEGIN_HEADER
 import logging
 import os
+from ModelSEEDCOBRA import KbPhasePlainAnalysis
 
 from installed_clients.KBaseReportClient import KBaseReport
 #END_HEADER
@@ -52,6 +53,11 @@ class ModelSEEDCOBRA:
         # ctx is the context object
         # return variables are: output
         #BEGIN run_phase_plain_analysis
+
+        app = KbPhasePlainAnalysis(params)
+        app.run()
+        report = app.get_report()
+
         #END run_phase_plain_analysis
 
         # At some point might do deeper type checking...
