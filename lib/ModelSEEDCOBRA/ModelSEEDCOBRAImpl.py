@@ -57,7 +57,7 @@ class ModelSEEDCOBRA:
         app = KbPhasePlainAnalysis(params)
         app.run()
         report = app.get_report()
-
+        output = {}
         #END run_phase_plain_analysis
 
         # At some point might do deeper type checking...
