@@ -108,7 +108,7 @@ parameters :
         short-hint : Report Height
         long-hint  : Report Height (in pixels)
 parameter-groups:
-    grid_maps :
+    traces :
         ui-name : Display Data
         short-hint : Configure Pathway Maps for the Grid
         long-hint  : Each grid cell will fill a row until max column.

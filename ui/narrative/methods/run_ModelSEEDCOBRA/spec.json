@@ -1,39 +1,37 @@
 {
-    "ver": "0.0.1",
-    "authors": [
-        "filipeliu"
-    ],
-    "contact": "fliu@anl.gov",
-    "categories": ["active", "metabolic_modeling"],
-    "widgets": {
-        "input": null,
-        "output": "no-display"
-    },
-   "parameter-groups": [
-      {
-        "id": "grid_maps",
-        "parameters": [
-          "target_reaction",
-          "map_id",
-          "user_map_id",
-          "model_compartment_id",
-          "model_alias",
-          "trace_color",
-          "export_full_model",
-          "translate_map",
-          "object_ids",
-          "cpd_abundance",
-          "cpd_abundance_dataset",
-          "gene_expression",
-          "gene_expression_dataset"
-        ],
-        "optional": true,
-        "advanced": false,
-        "allow_multiple": true,
-        "with_border": true
-      }
-    ],
-    "parameters": [
+  "ver": "0.0.1",
+  "authors": ["filipeliu"],
+  "contact": "fliu@anl.gov",
+  "categories": ["active", "metabolic_modeling"],
+  "widgets": {
+    "input": null,
+    "output": "no-display"
+  },
+  "parameter-groups": [
+    {
+      "id": "traces",
+      "parameters": [
+        "target_reaction",
+        "map_id",
+        "user_map_id",
+        "model_compartment_id",
+        "model_alias",
+        "trace_color",
+        "export_full_model",
+        "translate_map",
+        "object_ids",
+        "cpd_abundance",
+        "cpd_abundance_dataset",
+        "gene_expression",
+        "gene_expression_dataset"
+      ],
+      "optional": true,
+      "advanced": false,
+      "allow_multiple": true,
+      "with_border": true
+    }
+  ],
+  "parameters": [
     {
       "id": "model_id",
       "optional": false,
@@ -57,9 +55,7 @@
       "optional": false,
       "advanced": false,
       "allow_multiple": false,
-      "default_values": [
-        1
-      ],
+      "default_values": [1],
       "field_type": "text",
       "text_options": { "valid_ws_types": [], "validate_as":"int"}
     },
@@ -68,9 +64,7 @@
       "optional": false,
       "advanced": false,
       "allow_multiple": false,
-      "default_values": [
-        10
-      ],
+      "default_values": [10],
       "field_type": "text",
       "text_options": { "valid_ws_types": [], "validate_as":"int"}
     },
@@ -79,26 +73,18 @@
       "optional": false,
       "advanced": false,
       "allow_multiple": false,
-      "default_values": [
-        0.5
-      ],
+      "default_values": [0.5],
       "field_type": "text",
       "text_options": { "valid_ws_types": [], "validate_as":"float" }
     },
-
-{
+    {
       "id": "gene_mode",
       "optional": false,
       "advanced": false,
       "allow_multiple": false,
-      "default_values": [
-        0
-      ],
+      "default_values": [0],
       "field_type": "checkbox",
-      "checkbox_options": {
-        "checked_value": true,
-        "unchecked_value": false
-      }
+      "checkbox_options": {"checked_value": true, "unchecked_value": false}
     },
 
 {
@@ -348,8 +334,8 @@
     "behavior": {
         "service-mapping": {
             "url": "",
-            "name": "kb_escher",
-            "method": "run_kb_escher_pathway",
+            "name": "ModelSEEDCOBRA",
+            "method": "run_phase_plain_analysis",
             "input_mapping": [
                 {
                     "narrative_system_variable": "workspace",
@@ -376,8 +362,8 @@
                     "input_parameter": "target_exchange",
                     "target_property": "target_exchange"
                 },{
-                    "input_parameter": "grid_maps",
-                    "target_property": "grid_maps"
+                    "input_parameter": "traces",
+                    "target_property": "traces"
                 },{
                     "input_parameter": "report_height",
                     "target_property": "report_height"
