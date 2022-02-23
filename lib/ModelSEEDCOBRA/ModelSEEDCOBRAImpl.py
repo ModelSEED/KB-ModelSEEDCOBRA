@@ -2,7 +2,7 @@
 #BEGIN_HEADER
 import logging
 import os
-from ModelSEEDCOBRA import KbPhasePlainAnalysis
+from ModelSEEDCOBRA.run_phase_plain_analysis import KbPhasePlainAnalysis
 
 from installed_clients.KBaseReportClient import KBaseReport
 #END_HEADER
