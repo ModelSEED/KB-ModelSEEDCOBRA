@@ -58,14 +58,8 @@ class ModelSEEDCOBRA:
         # ctx is the context object
         # return variables are: output
         #BEGIN run_phase_plain_analysis
-        api = KBaseAPI(ctx['token'], config={'workspace-url': self.ws_url})
-        app = KbPhasePlainAnalysis(params, api)
-        app.run()
-        report = app.get_report()
-
-        # OLD COPY PASTE MOVE THIS OUT!
         import uuid
-        import shutil
+        output_directory = os.path.join(self.shared_folder, str(uuid.uuid4()))
 
         def mkdir_p(path):
             if not path:
@@ -77,35 +71,14 @@ class ModelSEEDCOBRA:
                     pass
                 else:
                     raise
-        output_directory = os.path.join(self.shared_folder, str(uuid.uuid4()))
+
         mkdir_p(output_directory)
-        print('output_directory', output_directory, os.listdir(output_directory))
-        shutil.copytree('/kb/module/data/run_phase_plain_analysis', output_directory + '/report')
-        print(output_directory)
 
-        shock_id = self.dfu.file_to_shock({
-            'file_path': output_directory + '/report',
-            'pack': 'zip'
-        })['shock_id']
+        api = KBaseAPI(ctx['token'], config={'workspace-url': self.ws_url})
+        app = KbPhasePlainAnalysis(params, self.callback_url, self.dfu, api, output_folder=output_directory)
+        app.run()
+        report_info = app.get_report()
 
-        html_report = [{
-            'shock_id': shock_id,
-            'name': 'index.html',
-            'label': 'HTML Report',
-            'description': 'Escher Pathway Map'
-        }]
-
-        report = KBaseReport(self.callback_url)
-        report_params = {
-            'message': 'message_in_app ' + output_directory,
-            'warnings': ['example warning'],
-            'workspace_name': params['workspace_name'],
-            'objects_created': [],
-            'html_links': html_report,
-            'direct_html_link_index': 0,
-            'html_window_height': int(params['report_height']),
-        }
-        report_info = report.create_extended_report(report_params)
         output = {
             'report_name': report_info['name'],
             'report_ref': report_info['ref']
