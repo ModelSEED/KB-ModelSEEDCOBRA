@@ -23,6 +23,7 @@ class KbPhasePlainAnalysis:
         ex = "EX_{}_e0".format(kb_params['target_exchange'].split('/')[-1])
         self.target_reaction = ex
         self.warnings = []
+        self.fba_results = {}
         print(kb_params)
 
     def run(self):
@@ -48,20 +49,15 @@ class KbPhasePlainAnalysis:
             order.append(it)
             it += 1
 
-        fba_results = {
+        self.fba_results = {
             'order': order,
             'fba': {}
         }
         for i in order:
-            fba_results['fba'][i] = {
+            self.fba_results['fba'][i] = {
                 'status': sols[i].status,
                 'fluxes': sols[i].fluxes.to_dict()
             }
-
-        output_fba_file = self.output_folder + '/fba_results.json'
-        print('[file]: saving ', output_fba_file)
-        with open(output_fba_file, 'w') as fh:
-            fh.write(json.dumps(fba_results))
 
     def get_report(self):
         import os
@@ -70,6 +66,11 @@ class KbPhasePlainAnalysis:
         print('[REPORT]', self.output_folder, os.listdir(self.output_folder))
         shutil.copytree('/kb/module/data/run_phase_plain_analysis', self.output_folder + '/')
         print('[REPORT]', self.output_folder, os.listdir(self.output_folder))
+
+        output_fba_file = self.output_folder + '/fba_results.json'
+        print('[file]: saving ', output_fba_file)
+        with open(output_fba_file, 'w') as fh:
+            fh.write(json.dumps(self.fba_results))
 
         shock_id = self.dfu.file_to_shock({
             'file_path': self.output_folder + '/',
