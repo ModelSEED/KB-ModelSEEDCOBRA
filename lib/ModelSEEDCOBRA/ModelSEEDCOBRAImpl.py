@@ -61,19 +61,6 @@ class ModelSEEDCOBRA:
         import uuid
         output_directory = os.path.join(self.shared_folder, str(uuid.uuid4()))
 
-        def mkdir_p(path):
-            if not path:
-                return
-            try:
-                os.makedirs(path)
-            except OSError as exc:
-                if exc.errno == errno.EEXIST and os.path.isdir(path):
-                    pass
-                else:
-                    raise
-
-        mkdir_p(output_directory)
-
         api = KBaseAPI(ctx['token'], config={'workspace-url': self.ws_url})
         app = KbPhasePlainAnalysis(params, self.callback_url, self.dfu, api, output_folder=output_directory)
         app.run()

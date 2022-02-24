@@ -63,6 +63,19 @@ class KbPhasePlainAnalysis:
         import os
         import shutil
 
+        def mkdir_p(path):
+            if not path:
+                return
+            try:
+                os.makedirs(path)
+            except OSError as exc:
+                if exc.errno == errno.EEXIST and os.path.isdir(path):
+                    pass
+                else:
+                    raise
+
+        #mkdir_p(output_directory)
+
         print('[REPORT]', self.output_folder, os.listdir(self.output_folder))
         shutil.copytree('/kb/module/data/run_phase_plain_analysis', self.output_folder + '/')
         print('[REPORT]', self.output_folder, os.listdir(self.output_folder))
