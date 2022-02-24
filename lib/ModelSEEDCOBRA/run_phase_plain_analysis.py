@@ -13,10 +13,12 @@ class KbPhasePlainAnalysis:
         self.ws = kb_params['workspace_name']
         self.model_id = kb_params['model_id']
         self.media_id = kb_params['media_id']
-        self.start = kb_params['range_start']
+
+        self.start = float(kb_params['range_start'])
         self.end = float(kb_params['range_step'])
         self.step = float(kb_params['range_end'])
-        self.report_ws = float(kb_params['workspace_name'])
+
+        self.report_ws = kb_params['workspace_name']
         self.report_height = int(kb_params['report_height'])
         self.callback_url = callback_url
 

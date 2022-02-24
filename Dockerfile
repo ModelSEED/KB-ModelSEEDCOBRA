@@ -18,6 +18,8 @@ RUN chmod -R a+rw /kb/module
 RUN apt-get update
 RUN apt-get -y install g++ cmake swig
 
+RUN pip install cobra --ignore-installed python-libsbml
+
 RUN mkdir -p /opt/build
 RUN git clone https://github.com/ModelSEED/ModelSEEDpy.git /opt/build/ModelSEEDpy
 RUN git clone -b cobra-model https://github.com/Fxe/cobrakbase.git /opt/build/cobrakbase
