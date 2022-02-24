@@ -76,7 +76,7 @@ class KbPhasePlainAnalysis:
 
         #mkdir_p(output_directory)
 
-        print('[REPORT]', self.output_folder, os.listdir(self.output_folder))
+        #print('[REPORT]', self.output_folder, os.listdir(self.output_folder))
         shutil.copytree('/kb/module/data/run_phase_plain_analysis', self.output_folder + '/')
         print('[REPORT]', self.output_folder, os.listdir(self.output_folder))
 
