@@ -98,9 +98,13 @@ class KbPhasePlainAnalysis:
         print('[REPORT]', self.output_folder, os.listdir(self.output_folder))
 
         output_fba_file = self.output_folder + '/fba_results.json'
-        print('[file]: saving ', output_fba_file)
+        output_trace_file = self.output_folder + '/traces.json'
+        print('[file]: saving ', output_fba_file, output_trace_file)
+
         with open(output_fba_file, 'w') as fh:
             fh.write(json.dumps(self.fba_results))
+        with open(output_trace_file, 'w') as fh:
+            fh.write(json.dumps(self.traces))
 
         shock_id = self.dfu.file_to_shock({
             'file_path': self.output_folder + '/',
