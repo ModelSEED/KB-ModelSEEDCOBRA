@@ -18,7 +18,9 @@ RUN chmod -R a+rw /kb/module
 RUN apt-get update
 RUN apt-get -y install g++ cmake swig
 
-RUN pip install cobra --ignore-installed python-libsbml
+# stupid fix to remove conflict of numpy
+RUN rm -rf /miniconda/lib/python3.6/site-packages/numpy*
+RUN pip install cobra
 
 RUN mkdir -p /opt/build
 RUN git clone https://github.com/ModelSEED/ModelSEEDpy.git /opt/build/ModelSEEDpy

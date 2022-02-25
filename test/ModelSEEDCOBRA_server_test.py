@@ -63,5 +63,17 @@ class ModelSEEDCOBRATest(unittest.TestCase):
         #
         # Check returned data with
         # self.assertEqual(ret[...], ...) or other unittest methods
-        ret = self.serviceImpl.run_ModelSEEDCOBRA(self.ctx, {'workspace_name': self.wsName,
-                                                             'parameter_1': 'Hello World!'})
+        params = {
+            'workspace_name': 'filipeliu:narrative_1644446642096',
+            'workspace_id': 65199,
+            'model_id': 'iML1515.kb',
+            'media_id': 'Carbon-D-Glucose',
+            'range_start': 1,
+            'range_end': 10,
+            'range_step': 0.5,
+            'target_exchange': 'kbase/default/compounds/id/cpd00027',
+            'traces': [],
+            'report_height': 800,
+            'gene_mode': 0
+        }
+        ret = self.serviceImpl.run_phase_plain_analysis(self.ctx, params)
