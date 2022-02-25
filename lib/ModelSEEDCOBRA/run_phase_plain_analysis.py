@@ -15,8 +15,8 @@ class KbPhasePlainAnalysis:
         self.media_id = kb_params['media_id']
 
         self.start = float(kb_params['range_start'])
-        self.end = float(kb_params['range_step'])
-        self.step = float(kb_params['range_end'])
+        self.end = float(kb_params['range_end'])
+        self.step = float(kb_params['range_step'])
 
         self.report_ws = kb_params['workspace_name']
         self.report_height = int(kb_params['report_height'])
@@ -26,7 +26,20 @@ class KbPhasePlainAnalysis:
         self.target_reaction = ex
         self.warnings = []
         self.fba_results = {}
+        self.traces = self.build_trace_properties_from_params(kb_params)
         print(kb_params)
+
+    def build_trace_properties_from_params(self, params: dict):
+        traces = {}
+        for param_trace in params['traces']:
+            traces[param_trace['target_reaction'][0]] = {
+                "mode": param_trace['trace_mode'],
+                "abs": True if int(param_trace['trace_abs']) else False,
+                "name": param_trace['trace_alias'],
+                "color": param_trace['trace_color'],
+                #"dash": ""
+            }
+        return traces
 
     def run(self):
         print('[api::get_from_ws]', self.model_id)
@@ -42,8 +55,10 @@ class KbPhasePlainAnalysis:
         sols = {}
         order = []
         it = 0
+        print('[run]:start;end;step', self.start, self.end, self.step)
         for i in np.arange(self.start, self.end, self.step):
             i = round(i, 8)
+            print(i)
             rxn = model.reactions.get_by_id(self.target_reaction)
             rxn.lower_bound = -i
             sol = cobra.flux_analysis.pfba(model)

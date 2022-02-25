@@ -12,12 +12,12 @@
       "id": "traces",
       "parameters": [
         "target_reaction",
-        "map_id",
+        "trace_mode",
+        "trace_alias",
+        "trace_color",
+        "trace_abs",
         "user_map_id",
         "model_compartment_id",
-        "model_alias",
-        "trace_color",
-        "export_full_model",
         "translate_map",
         "object_ids",
         "cpd_abundance",
@@ -88,8 +88,8 @@
     },
 
 {
-      "id": "export_full_model",
-      "optional": false,
+      "id": "trace_abs",
+      "optional": true,
       "advanced": true,
       "allow_multiple": false,
       "default_values": [
@@ -266,22 +266,21 @@
       }
     },
    {
-       "id": "map_id",
-      "optional": false,
-      "allow_multiple": false,
-      "field_type": "dropdown",
-      "dropdown_options": {
-        "options": [
-        {"id": "trace_line_style_line", "display": "line", "ui_name": "line", "value": "line"},
-        {"id": "trace_line_style_markers", "display": "markers", "ui_name": "markers", "value": "markers"},
-        {"id": "trace_line_style_line_markers", "display": "line+markers", "ui_name": "line+markers", "value": "line+markers"}
-        ]
-      },
-
-      "advanced": false,
-      "default_values": [ "line"],
-      "text_options": { "valid_ws_types": [ ]}
-    },
+     "id": "trace_mode",
+     "optional": false,
+     "allow_multiple": false,
+     "field_type": "dropdown",
+     "dropdown_options": {
+       "options": [
+         {"id": "trace_line_style_line", "display": "line", "ui_name": "line", "value": "line"},
+         {"id": "trace_line_style_markers", "display": "markers", "ui_name": "markers", "value": "markers"},
+         {"id": "trace_line_style_line_markers", "display": "line+markers", "ui_name": "line+markers", "value": "line+markers"}
+       ]
+     },
+     "advanced": false,
+     "default_values": [ "line"],
+     "text_options": { "valid_ws_types": [ ]}
+   },
    {
       "id": "user_map_id",
       "optional": true,
@@ -292,7 +291,7 @@
       "text_options": {"valid_ws_types": ["KBaseFBA.EscherMap"]}
     },
       {
-      "id": "model_alias",
+      "id": "trace_alias",
       "optional": true,
       "advanced": false,
       "allow_multiple": false,
@@ -319,7 +318,7 @@
     },
         {
       "id": "model_compartment_id",
-      "optional": false,
+      "optional": true,
       "advanced": false,
       "allow_multiple": false,
       "default_values": [

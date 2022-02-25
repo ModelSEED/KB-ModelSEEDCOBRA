@@ -26,8 +26,8 @@ class ModelSEEDCOBRA:
     # the latter method is running.
     ######################################### noqa
     VERSION = "0.0.1"
-    GIT_URL = ""
-    GIT_COMMIT_HASH = ""
+    GIT_URL = "git@github.com:ModelSEED/KB-ModelSEEDCOBRA.git"
+    GIT_COMMIT_HASH = "913227e71426e59ae4163aab262ee5e3e5494084"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER

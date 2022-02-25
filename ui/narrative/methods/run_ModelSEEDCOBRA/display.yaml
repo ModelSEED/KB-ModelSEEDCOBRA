@@ -51,8 +51,8 @@ parameters :
         ui-name : Gene Expression
         short-hint : Set default display to gene expression.
         long-hint  : Set default display to gene expression.
-    map_id:
-        ui-name : Map Catalog
+    trace_mode:
+        ui-name : Trace Mode
         short-hint : Pathway Map Catalog
         long-hint  : Pathway Map Catalog. To use a custom map select Narrative Workspace Map then select the map object in the field below (Narrative Map).
     user_map_id:
@@ -71,7 +71,7 @@ parameters :
         ui-name : Metabolic Model Compartment
         short-hint : Compartment of the model to be represented in the cell
         long-hint  : Compartment of the model to be represented in the cell
-    model_alias :
+    trace_alias :
         ui-name : Trace Alias
         short-hint : Custom defined alias
         long-hint  : All cells must have an unique identifier, e.g., cpd00001 @ <unique id>
@@ -79,7 +79,7 @@ parameters :
         ui-name : Trace Color
         short-hint : Custom defined alias
         long-hint  : All cells must have an unique identifier, e.g., cpd00001 @ <unique id>
-    export_full_model :
+    trace_abs :
         ui-name : ABS
         short-hint : Allow maps to add additional reactions
         long-hint  : By default each cell is limited to reactions within the pathway. This feature includes all data in the model (increases the report size).

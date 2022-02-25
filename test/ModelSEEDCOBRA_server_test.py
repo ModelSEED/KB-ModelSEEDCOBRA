@@ -54,6 +54,8 @@ class ModelSEEDCOBRATest(unittest.TestCase):
 
     # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
     def test_your_method(self):
+        print('ENVIRONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN')
+        print(os.environ)
         # Prepare test objects in workspace if needed using
         # self.getWsClient().save_objects({'workspace': self.getWsName(),
         #                                  'objects': []})
@@ -72,7 +74,15 @@ class ModelSEEDCOBRATest(unittest.TestCase):
             'range_end': 10,
             'range_step': 0.5,
             'target_exchange': 'kbase/default/compounds/id/cpd00027',
-            'traces': [],
+            'traces': [
+                {
+                    'target_reaction': ['DM_cpd01042_c0'],
+                    'trace_mode': 'line',
+                    'trace_alias': 'cresol',
+                    'trace_color': 'rgb(128,0,0)',
+                    'trace_abs': 1
+                }
+            ],
             'report_height': 800,
             'gene_mode': 0
         }
