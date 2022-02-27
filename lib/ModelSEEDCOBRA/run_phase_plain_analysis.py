@@ -27,6 +27,9 @@ class KbPhasePlainAnalysis:
         self.warnings = []
         self.fba_results = {}
         self.traces = self.build_trace_properties_from_params(kb_params)
+        self.plot_params = {
+            'title': 'Phase Plane Analysis'
+        }
         print(kb_params)
 
     def build_trace_properties_from_params(self, params: dict):
@@ -104,7 +107,11 @@ class KbPhasePlainAnalysis:
         with open(output_fba_file, 'w') as fh:
             fh.write(json.dumps(self.fba_results))
         with open(output_trace_file, 'w') as fh:
-            fh.write(json.dumps(self.traces))
+            plot_data = {
+                'plot_params': self.plot_params,
+                'traces': self.traces
+            }
+            fh.write(json.dumps(plot_data))
 
         shock_id = self.dfu.file_to_shock({
             'file_path': self.output_folder + '/',
