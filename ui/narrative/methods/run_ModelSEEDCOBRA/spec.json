@@ -13,17 +13,10 @@
       "parameters": [
         "target_reaction",
         "trace_mode",
+        "trace_line",
         "trace_alias",
         "trace_color",
-        "trace_abs",
-        "user_map_id",
-        "model_compartment_id",
-        "translate_map",
-        "object_ids",
-        "cpd_abundance",
-        "cpd_abundance_dataset",
-        "gene_expression",
-        "gene_expression_dataset"
+        "trace_abs"
       ],
       "optional": true,
       "advanced": false,
@@ -55,18 +48,18 @@
       "optional": false,
       "advanced": false,
       "allow_multiple": false,
-      "default_values": [1],
+      "default_values": [1.0],
       "field_type": "text",
-      "text_options": { "valid_ws_types": [], "validate_as":"int"}
+      "text_options": { "valid_ws_types": [], "validate_as":"float"}
     },
     {
       "id": "range_end",
       "optional": false,
       "advanced": false,
       "allow_multiple": false,
-      "default_values": [10],
+      "default_values": [10.0],
       "field_type": "text",
-      "text_options": { "valid_ws_types": [], "validate_as":"int"}
+      "text_options": { "valid_ws_types": [], "validate_as":"float"}
     },
     {
       "id": "range_step",
@@ -78,13 +71,43 @@
       "text_options": { "valid_ws_types": [], "validate_as":"float" }
     },
     {
-      "id": "gene_mode",
+      "id": "plot_title",
       "optional": false,
-      "advanced": false,
+      "advanced": true,
       "allow_multiple": false,
-      "default_values": [0],
-      "field_type": "checkbox",
-      "checkbox_options": {"checked_value": true, "unchecked_value": false}
+      "default_values": [
+        "Phase Plane Analysis"
+      ],
+      "field_type": "text",
+      "text_options": {
+        "valid_ws_types": []
+      }
+    },
+    {
+      "id": "plot_x_axis_label",
+      "optional": false,
+      "advanced": true,
+      "allow_multiple": false,
+      "default_values": [
+        "Iteration"
+      ],
+      "field_type": "text",
+      "text_options": {
+        "valid_ws_types": []
+      }
+    },
+    {
+      "id": "plot_y_axis_label",
+      "optional": false,
+      "advanced": true,
+      "allow_multiple": false,
+      "default_values": [
+        "Flux Value"
+      ],
+      "field_type": "text",
+      "text_options": {
+        "valid_ws_types": []
+      }
     },
 
 {
@@ -94,20 +117,6 @@
       "allow_multiple": false,
       "default_values": [
         0
-      ],
-      "field_type": "checkbox",
-      "checkbox_options": {
-        "checked_value": true,
-        "unchecked_value": false
-      }
-    },
-{
-      "id": "translate_map",
-      "optional": false,
-      "advanced": true,
-      "allow_multiple": false,
-      "default_values": [
-        1
       ],
       "field_type": "checkbox",
       "checkbox_options": {
@@ -131,62 +140,7 @@
         "max_int": 6000
       }
     },
-        {
-      "id": "gene_expression_dataset",
-      "optional": true,
-      "advanced": false,
-      "allow_multiple": false,
-      "default_values": [
-        ""
-      ],
-      "field_type": "text",
-      "text_options": {
-        "valid_ws_types": []
-      }
-    },
-        {
-      "id": "cpd_abundance_dataset",
-      "optional": true,
-      "advanced": false,
-      "allow_multiple": false,
-      "default_values": [
-        ""
-      ],
-      "field_type": "text",
-      "text_options": {
-        "valid_ws_types": []
-      }
-    },
     {
-      "id": "object_ids",
-      "optional": true,
-      "advanced": false,
-      "allow_multiple": true,
-      "default_values": [
-        ""
-      ],
-      "field_type": "text",
-      "text_options": {
-        "valid_ws_types": [
-          "KBaseFBA.FBA"
-        ]
-      }
-    },
-    {
-      "id": "cpd_abundance",
-      "optional": true,
-      "advanced": false,
-      "allow_multiple": true,
-      "default_values": [
-        "null"
-      ],
-      "field_type": "text",
-      "text_options": {
-        "valid_ws_types": [
-          "KBaseMatrices.ChemicalAbundanceMatrix"
-        ]
-      }
-    },{
          "id" : "target_exchange",
          "field_type" : "textsubdata",
          "allow_multiple" : false,
@@ -250,21 +204,6 @@
             }
          }
       },
-    {
-      "id": "gene_expression",
-      "optional": true,
-      "advanced": false,
-      "allow_multiple": true,
-      "default_values": [
-        "null"
-      ],
-      "field_type": "text",
-      "text_options": {
-        "valid_ws_types": [
-          "KBaseFeatureValues.ExpressionMatrix"
-        ]
-      }
-    },
    {
      "id": "trace_mode",
      "optional": false,
@@ -272,9 +211,9 @@
      "field_type": "dropdown",
      "dropdown_options": {
        "options": [
-         {"id": "trace_line_style_line", "display": "line", "ui_name": "line", "value": "line"},
-         {"id": "trace_line_style_markers", "display": "markers", "ui_name": "markers", "value": "markers"},
-         {"id": "trace_line_style_line_markers", "display": "line+markers", "ui_name": "line+markers", "value": "line+markers"}
+         {"id": "trace_mode_line", "display": "line", "ui_name": "line", "value": "line"},
+         {"id": "trace_mode_markers", "display": "markers", "ui_name": "markers", "value": "markers"},
+         {"id": "trace_mode_line_markers", "display": "line+markers", "ui_name": "line+markers", "value": "line+markers"}
        ]
      },
      "advanced": false,
@@ -282,14 +221,21 @@
      "text_options": { "valid_ws_types": [ ]}
    },
    {
-      "id": "user_map_id",
-      "optional": true,
-      "advanced": false,
-      "allow_multiple": true,
-      "default_values": ["null"],
-      "field_type": "text",
-      "text_options": {"valid_ws_types": ["KBaseFBA.EscherMap"]}
-    },
+     "id": "trace_line",
+     "optional": false,
+     "allow_multiple": false,
+     "field_type": "dropdown",
+     "dropdown_options": {
+       "options": [
+         {"id": "trace_line_line", "display": "none", "ui_name": "none", "value": "none"},
+         {"id": "trace_line_markers", "display": "dot", "ui_name": "dot", "value": "dot"},
+         {"id": "trace_line_line_markers", "display": "dash", "ui_name": "dash", "value": "dash"}
+       ]
+     },
+     "advanced": false,
+     "default_values": [ "none"],
+     "text_options": { "valid_ws_types": [ ]}
+   },
       {
       "id": "trace_alias",
       "optional": true,
@@ -310,19 +256,6 @@
       "allow_multiple": false,
       "default_values": [
         ""
-      ],
-      "field_type": "text",
-      "text_options": {
-        "valid_ws_types": []
-      }
-    },
-        {
-      "id": "model_compartment_id",
-      "optional": true,
-      "advanced": false,
-      "allow_multiple": false,
-      "default_values": [
-        "c0"
       ],
       "field_type": "text",
       "text_options": {
@@ -361,14 +294,20 @@
                     "input_parameter": "target_exchange",
                     "target_property": "target_exchange"
                 },{
+                    "input_parameter": "plot_title",
+                    "target_property": "plot_title"
+                },{
+                    "input_parameter": "plot_x_axis_label",
+                    "target_property": "plot_x_axis_label"
+                },{
+                    "input_parameter": "plot_y_axis_label",
+                    "target_property": "plot_y_axis_label"
+                },{
                     "input_parameter": "traces",
                     "target_property": "traces"
                 },{
                     "input_parameter": "report_height",
                     "target_property": "report_height"
-                },{
-                    "input_parameter": "gene_mode",
-                    "target_property": "gene_mode"
                 }
             ],
             "output_mapping": [

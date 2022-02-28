@@ -47,30 +47,30 @@ parameters :
         ui-name : Step
         short-hint : Number of columns in the grid.
         long-hint  : Max column size of the grid. If column size is greater than number of grid cells empty canvas slots will be displayed.
-    gene_mode :
-        ui-name : Gene Expression
-        short-hint : Set default display to gene expression.
-        long-hint  : Set default display to gene expression.
+    plot_title :
+        ui-name : Title
+        short-hint : Title
+        long-hint  : Title
+    plot_x_axis_label :
+        ui-name : X Label
+        short-hint : X Label
+        long-hint  : X Label
+    plot_y_axis_label :
+        ui-name : Y label
+        short-hint : Y label
+        long-hint  : Y label
     trace_mode:
         ui-name : Trace Mode
         short-hint : Pathway Map Catalog
         long-hint  : Pathway Map Catalog. To use a custom map select Narrative Workspace Map then select the map object in the field below (Narrative Map).
-    user_map_id:
-        ui-name : Narrative Map
-        short-hint : Custom Map
-        long-hint  : Custom Map in the narrative workspace.
-    translate_map :
-        ui-name : Translate Generic Map
-        short-hint : Translate Generic Map to Model Data
-        long-hint  : Generic Map do not contain compartment data (e.g., c0, e0, m0, etc), uncheck this for custom maps with compartments.
+    trace_line:
+        ui-name : Trace Line
+        short-hint : Pathway Map Catalog
+        long-hint  : Pathway Map Catalog. To use a custom map select Narrative Workspace Map then select the map object in the field below (Narrative Map).
     target_reaction :
         ui-name : Target Reaction
         short-hint : Metabolic Model
         long-hint  : Metabolic Model
-    model_compartment_id :
-        ui-name : Metabolic Model Compartment
-        short-hint : Compartment of the model to be represented in the cell
-        long-hint  : Compartment of the model to be represented in the cell
     trace_alias :
         ui-name : Trace Alias
         short-hint : Custom defined alias
@@ -83,26 +83,6 @@ parameters :
         ui-name : ABS
         short-hint : Allow maps to add additional reactions
         long-hint  : By default each cell is limited to reactions within the pathway. This feature includes all data in the model (increases the report size).
-    object_ids :
-        ui-name : Flux Analysis Data
-        short-hint : model_compartment_id_hint
-        long-hint  : model_compartment_id_lhint
-    cpd_abundance :
-        ui-name : Chemical Abudance Matrix
-        short-hint : Select the Chemical Abundance Matrix
-        long-hint  : Select the Chemical Abundance Matrix
-    cpd_abundance_dataset :
-        ui-name : Chemical Abudance Condition
-        short-hint : Specify the specific condtion (Specific row heading of the matrix)
-        long-hint  : Specify the specific condtion (Specific row heading of the matrix)
-    gene_expression :
-        ui-name : Gene Expression Matrix
-        short-hint : model_compartment_id_hint
-        long-hint  : model_compartment_id_lhint
-    gene_expression_dataset :
-        ui-name : Gene Expression Data Dataset
-        short-hint : model_compartment_id_hint
-        long-hint  : model_compartment_id_lhint
     report_height :
         ui-name : Report Height
         short-hint : Report Height
@@ -113,21 +93,9 @@ parameter-groups:
         short-hint : Configure Pathway Maps for the Grid
         long-hint  : Each grid cell will fill a row until max column.
 description : |
-    <p>Escher is a web tool for visualizing metabolic models and related data. The KBase tool adapts the original Escher web application to visualize metabolic models and its related data in the KBase context.</p>
-    <p>The Escher Pathway Viewer application allows users to display metabolic pathways.</p>
-    <ul>
-      <li>Compose metabolic pathways: Combine multiple pathways in a grid system that allows to display multiple pathways in a single canvas.</li>
-      <li>Display Reaction Fluxes: Paint flux analysis result in the network displayed network.</li>
-      <li>Display Metabolic Data: Visualize compound abundance matrices in model pathways</li>
-      <li>Display Expression Data: Highlight expression data in the metabolic model pathway</li>
-    </ul>
+    <p>Phase Plane Analysis</p>
 
 publications :
     -
         display-text: |
-            [1] King, Z. A., Dräger, A., Ebrahim, A., Sonnenschein, N., Lewis, N. E., & Palsson, B. Ø. (2015). Escher: A Web Application for Building, Sharing, and Embedding Data-Rich Visualizations of Biological Pathways. PLOS Computational Biology, 11(8), e1004321.
-        link: https://doi.org/10.1371/journal.pcbi.1004321
-    -
-        display-text: |
-            [2] Rowe, E., Palsson, B. Ø., & King, Z. A. (2018). Escher-FBA: a web application for interactive flux balance analysis. BMC Systems Biology, 12(1), 84.
-        link: https://doi.org/10.1186/s12918-018-0607-5
+            Text

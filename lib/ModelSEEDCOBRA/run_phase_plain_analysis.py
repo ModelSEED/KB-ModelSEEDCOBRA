@@ -28,8 +28,18 @@ class KbPhasePlainAnalysis:
         self.fba_results = {}
         self.traces = self.build_trace_properties_from_params(kb_params)
         self.plot_params = {
-            'title': 'Phase Plane Analysis'
+            'title': 'Phase Plane Analysis',
+            'xaxis': {'title': 'iterations'},
+            'yaxis': {'title': 'flux'}
         }
+        """
+        if 'plot_title' in kb_params:
+            self.plot_params['title'] = kb_params['plot_title']
+        if 'plot_x_axis_label' in kb_params:
+            self.plot_params['xaxis']['title'] = kb_params['plot_x_axis_label']
+        if 'plot_y_axis_label' in kb_params:
+            self.plot_params['yaxis']['title'] = kb_params['plot_y_axis_label']
+        """
         print(kb_params)
 
     def build_trace_properties_from_params(self, params: dict):
@@ -40,8 +50,11 @@ class KbPhasePlainAnalysis:
                 "abs": True if int(param_trace['trace_abs']) else False,
                 "name": param_trace['trace_alias'],
                 "color": param_trace['trace_color'],
+                "visible": True
                 #"dash": ""
             }
+            if 'trace_line' in param_trace and param_trace['trace_line'] != "none":
+                traces[param_trace['target_reaction'][0]]['dash'] = param_trace['trace_line']
         return traces
 
     def run(self):
