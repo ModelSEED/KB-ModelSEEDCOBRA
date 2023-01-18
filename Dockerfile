@@ -20,14 +20,10 @@ RUN apt-get -y install g++ cmake swig
 
 # stupid fix to remove conflict of numpy
 RUN rm -rf /miniconda/lib/python3.6/site-packages/numpy*
-RUN pip install cobra
 
-RUN mkdir -p /opt/build
-RUN git clone https://github.com/ModelSEED/ModelSEEDpy.git /opt/build/ModelSEEDpy
-RUN git clone -b cobra-model https://github.com/Fxe/cobrakbase.git /opt/build/cobrakbase
-
-RUN pip install /opt/build/ModelSEEDpy
-RUN pip install /opt/build/cobrakbase
+RUN pip install --upgrade pip
+RUN pip install git+https://github.com/ModelSEED/ModelSEEDpy.git@2aa8a21525bb7006b720f423ca43b518a8632252
+RUN pip install git+https://github.com/Fxe/cobrakbase.git@76c53a3448e8f86460af285ec87eb98372b8ae2b
 
 WORKDIR /kb/module
 

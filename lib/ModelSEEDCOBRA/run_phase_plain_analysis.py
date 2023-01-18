@@ -45,16 +45,20 @@ class KbPhasePlainAnalysis:
     def build_trace_properties_from_params(self, params: dict):
         traces = {}
         for param_trace in params['traces']:
-            traces[param_trace['target_reaction'][0]] = {
+            trace_id = param_trace['target_reaction'][0]
+            traces[trace_id] = {
                 "mode": param_trace['trace_mode'],
                 "abs": True if int(param_trace['trace_abs']) else False,
-                "name": param_trace['trace_alias'],
-                "color": param_trace['trace_color'],
                 "visible": True
-                #"dash": ""
             }
+            if 'trace_alias' in param_trace and len(param_trace['trace_alias'].strip()) > 0:
+                traces[trace_id]['name'] = param_trace['trace_alias']
+            else:
+                traces[trace_id]['name'] = trace_id
+            if 'trace_color' in param_trace and len(param_trace['trace_color'].strip()) > 0:
+                traces[trace_id]['color'] = param_trace['trace_color']
             if 'trace_line' in param_trace and param_trace['trace_line'] != "none":
-                traces[param_trace['target_reaction'][0]]['dash'] = param_trace['trace_line']
+                traces[trace_id]['dash'] = param_trace['trace_line']
         return traces
 
     def run(self):
